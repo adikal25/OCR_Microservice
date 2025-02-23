@@ -12,11 +12,11 @@ st.title("OCR_Microservice_test")
 
 def process_image(image_file):
     files={"file":("image.jpg", image_file,"image/jpeg")}
-    response = requests.post("http://web:8000/ocr/",files=files)
+    response = requests.post("http://localhost:8000/ocr/", files=files)
     return response.json()['task_id']
 
 def get_result(task_id):
-    response = requests.get(f"http://web:8000/ocr/{task_id}")
+    response = requests.get(f"http://localhost:8000/ocr/{task_id}")
     return response.json()
 
 
