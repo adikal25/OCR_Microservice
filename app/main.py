@@ -1,6 +1,8 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from celery.result import AsyncResult
 
+from app.celery_worker import process_image
+
 app = FastAPI(title="OCR Microservice")
 
 @app.post("/ocr/")
@@ -25,3 +27,7 @@ async def get_ocr_result(task_id: str):
             return {"status": "failed", "error": str(task_result.result)}
         
     return {"status":"processing"}
+
+@app.get("/health")
+async def health_check():
+    return {"status":"healthy"}
